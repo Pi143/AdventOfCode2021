@@ -28,7 +28,7 @@ fun getCodeOfDay(day: Int) {
     val file = File("src", "Day${day.toString().padStart(2, '0')}.txt")
 
     if (!file.exists()) {
-        print("Downloading puzzle input for the first time")
+        println("Downloading puzzle input for the first time")
         with(url.openConnection() as HttpURLConnection) {
             this.setRequestProperty("Cookie", config[0])
             requestMethod = "GET"
