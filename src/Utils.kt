@@ -36,3 +36,51 @@ fun getCodeOfDay(day: Int) {
         }
     }
 }
+
+fun createDay(day: Int) {
+    createTemplate(day)
+    createTestfile(day)
+    //getCodeOfDay(day)
+}
+
+fun createTemplate(day: Int) {
+    val template = File("src", "DayXX.kt")
+    val file = File("src", "Day${day.toString().padStart(2, '0')}.kt")
+    if (!file.exists()) {
+        file.writeText(
+            template.readText()
+                .replace("0", day.toString())
+                .replace("XX", day.toString().padStart(2, '0'))
+        )
+    }
+
+}
+
+fun createTestfile(day: Int) {
+    val file = File("src", "Day${day.toString().padStart(2, '0')}_test.txt")
+    if (!file.exists()) {
+        file.createNewFile()
+    }
+}
+
+fun findMaxDay(): Int {
+    var maxDay = 0
+    File("src").walk().forEach {
+        val regex = "\\d{2}".toRegex()
+        val match = regex.find(it.name)
+        val currentDay = match?.value?.toInt()
+        if(currentDay != null && currentDay > maxDay) {
+            maxDay = currentDay
+        }
+    }
+    return maxDay
+}
+
+fun createNextDay(){
+    val day = findMaxDay()
+    val file = File("src", "Day${day.toString().padStart(2, '0')}.txt")
+    if (!file.exists()) {
+        createDay(day+1)
+    }
+
+}
