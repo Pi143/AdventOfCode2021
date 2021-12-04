@@ -77,10 +77,10 @@ fun findMaxDay(): Int {
 }
 
 fun createNextDay(){
-    val day = findMaxDay()
-    val file = File("src", "Day${day.toString().padStart(2, '0')}.txt")
+    val nextDay = findMaxDay() +1
+    val file = File("src", "Day${nextDay.toString().padStart(2, '0')}.txt")
     if (!file.exists()) {
-        createDay(day+1)
+        createDay(nextDay)
     }
 
 }
